@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+
+# Editor files (feel free to add more if needed)
+.vscode/
+.vs/
+.idea/
+
+# Logs and databases
+*.log
+*.sqlite
+*.db
