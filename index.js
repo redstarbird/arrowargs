@@ -60,11 +60,11 @@ function Parse(argumentList, OptionsList, GlobalConfig) {
                             if (argumentList[i + 1]) {
                                 const temp = argumentList[i + 1].toLowerCase();
                                 if (temp !== "true" && temp !== "false" && temp !== "1" && temp !== "0") {
-                                    argv[OptionsList[j].name] = true; console.log("boolean");
+                                    argv[OptionsList[j].name] = true;
                                     Found = true;
                                     break;
                                 }
-                            } else { argv[OptionsList[j].name] = true; console.log("Boolean"); }
+                            } else { argv[OptionsList[j].name] = true; }
                         }
                         LastKeyIndex = j;
                         LastArgumentWasKey = true;
@@ -103,11 +103,9 @@ class Option {
         for (var key in ConfigObject) {
             if (this.config.hasOwnProperty(key)) {
                 this.config[key] = ConfigObject[key];
-                console.log(this.config.default + " default");
 
             } else { console.log("Warning: Unknown option " + key); }
         }
-        console.log(name + " " + this.config);
 
     }
 }
@@ -119,7 +117,6 @@ class ArrowArgs {
             ArgumentsList = ArgumentsList.slice(2);
         }
         this.ArgumentsList = ArgumentsList;
-        console.log(ArgumentsList);
         this.GlobalConfig = {
             help: false,
             strict: false,
@@ -127,7 +124,6 @@ class ArrowArgs {
         }
     }
     option(name, ConfigObject) {
-        console.log(ConfigObject);
         this.options.push(new Option(name, ConfigObject));
         return this;
     }
@@ -144,7 +140,6 @@ class ArrowArgs {
         return this;
     }
     get argv() {
-        console.log(this.options[2].default);
         return Parse(this.ArgumentsList, this.options, this.GlobalConfig);
     }
 }
