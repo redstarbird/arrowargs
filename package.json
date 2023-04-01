@@ -1,6 +1,6 @@
 {
 	"name": "arrowargs",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "An ultra lightweight and efficient argument parser",
 	"main": "index.js",
 	"scripts": {

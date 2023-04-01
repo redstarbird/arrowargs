@@ -112,10 +112,12 @@ class Option {
 
 class ArrowArgs {
     constructor(ArgumentsList) {
-        this.options = [];
-        if (ArgumentsList[0].includes("/node") || ArgumentsList[0].includes("\\node")) {
-            ArgumentsList = ArgumentsList.slice(2);
+        this.options = []; if (ArgumentsList.length > 0) {
+            if (ArgumentsList[0].includes("/node") || ArgumentsList[0].includes("\\node")) {
+                ArgumentsList = ArgumentsList.slice(2);
+            }
         }
+
         this.ArgumentsList = ArgumentsList;
         this.GlobalConfig = {
             help: false,
