@@ -35,6 +35,22 @@ function ApplyValue(Option, value) {
     }
 }
 
+// Compare option to a string
+function compVals(option, key) {
+    key = key.toLowerCase();
+    if (option.name.toLowerCase() === key) {
+        return true;
+    }
+    if (option.config.alias) {
+        if (option.config.alias !== "") {
+            if (option.config.alias.toLowerCase() === key) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 function Parse(argumentList, OptionsList, GlobalConfig) {
     let argv = {};
     const OptionsLength = OptionsList.length;
@@ -47,12 +63,13 @@ function Parse(argumentList, OptionsList, GlobalConfig) {
             LastArgumentWasKey = false;
         } else {
             let CurrentKey = argumentList[i].replace(/-/g, "");
+
             let SingleToken = false;
             if (CurrentKey.includes("=")) { CurrentKey = CurrentKey.split("=", 2); SingleToken = true; }
             if (CurrentKey.includes(":")) { CurrentKey = CurrentKey.split(":", 2); SingleToken = true; }
             if (SingleToken) {
                 for (var j = 0; j < OptionsLength; j++) {
-                    if (OptionsList[j].name.toLowerCase() === CurrentKey[0].toLowerCase()) {
+                    if (compVals(OptionsList[j], CurrentKey)) {
                         argv[OptionsList[j].name] = ApplyValue(OptionsList[j], CurrentKey[1]);
                         break;
                     }
@@ -60,7 +77,7 @@ function Parse(argumentList, OptionsList, GlobalConfig) {
             } else {
                 let Found = false;
                 for (var j = 0; j < OptionsLength; j++) {
-                    if (OptionsList[j].name.toLowerCase() === CurrentKey.toLowerCase()) {
+                    if (compVals(OptionsList[j], CurrentKey)) {
                         if (OptionsList[j].config.type === "boolean") {
                             if (argumentList[i + 1]) {
                                 const temp = argumentList[i + 1].toLowerCase();
