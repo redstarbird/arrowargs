@@ -1,3 +1,8 @@
+const colors = {
+    "yellow": "\x1b[33m",
+    "reset": "\x1b[0m"
+};
+
 function EnsureArgument(argument, name) {
     if (!argument || argument === undefined || argument === null) {
         throw "Error: argument " + name + " is undefined";
@@ -72,8 +77,15 @@ function Parse(argumentList, OptionsList, GlobalConfig) {
                         break;
                         // argv[OptionsList[j].name] = ApplyValue(OptionsList[j], CurrentKey);
                     }
-                } if (GlobalConfig.strict && !Found) {
-                    throw "Error unknown argument: " + CurrentKey;
+                }
+
+                // Handle unknown arguments
+                if (!Found) {
+                    if (GlobalConfig.strict) {
+                        throw "Error unknown argument: " + CurrentKey;
+                    } else if (GlobalConfig.warnUnknown) {
+                        console.log(colors.yellow + "Warning! " + colors.reset + "Unknown argument: " + CurrentKey);
+                    }
                 }
             }
 
@@ -122,7 +134,8 @@ class ArrowArgs {
         this.GlobalConfig = {
             help: false,
             strict: false,
-            version: null
+            version: null,
+            warnUnknown: false,
         }
     }
     option(name, ConfigObject) {
@@ -137,6 +150,11 @@ class ArrowArgs {
         this.GlobalConfig.strict = true;
         return this;
     }
+    warnUnknown() {
+        this.GlobalConfig.warnUnknown = true;
+        return this;
+    }
+
     version(VersionNum) {
         this.GlobalConfig.version = VersionNum;
         return this;
