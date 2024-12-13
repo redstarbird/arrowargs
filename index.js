@@ -62,7 +62,7 @@ function Parse(argumentList, OptionsList, GlobalConfig) {
             argv[OptionsList[LastKeyIndex].name] = ApplyValue(OptionsList[LastKeyIndex], argumentList[i]);
             LastArgumentWasKey = false;
         } else {
-            let CurrentKey = argumentList[i].replace(/-/g, "");
+            let CurrentKey = argumentList[i].replace(/^-*/g, "");
 
             let SingleToken = false;
             if (CurrentKey.includes("=")) { CurrentKey = CurrentKey.split("=", 2); SingleToken = true; }
