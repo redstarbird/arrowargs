@@ -1,7 +1,7 @@
 # Changelog
 
 Any features, notable changes and bug fixes will be found in the file.
-Based of off [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
+Based off of [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 
 # [0.0.5] - Unreleased
 
