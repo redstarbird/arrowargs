@@ -28,7 +28,6 @@ function ApplyValue(Option, value) {
         case "number":
             return Number(value);
         case "boolean":
-            console.log("Boolean " + value + "is " + StringToBoolean(value));
             return StringToBoolean(value);
         default:
             return value;
